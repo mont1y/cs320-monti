@@ -20,6 +20,17 @@ let string_get(cs, i0) = String.get cs i0
 let rec fact(x: int): int =
 if x > 0 then x * fact(x-1) else 1;;
 
+(* String concat helped function *)
+
+let strcat a b =
+  let len = String.length a + String.length b in
+  String.init len (fun i ->
+    if i < String.length a then
+      a.[i]
+    else
+      b.[i - String.length a]
+)
+
 (*
 Assign0-1: 10 points
 Please find the first integer N such that the
@@ -112,15 +123,15 @@ let int2str(i0: int): string =
   let rec getEach n conc=
     if (n < 10) then
       (* Add Digit to String *)
-      (str(chr (n + ord '0'))) ^ conc
+      strcat (str(chr (n + ord '0'))) conc
     else
       let num = n mod 10 in
-      let new_conc = str (chr (num + ord '0')) ^ conc in
+      let new_conc = strcat (str (chr (num + ord '0'))) conc in
       (* Add this char to String *)
       getEach (n / 10) new_conc
   in
   if i0 = 0 then "0" 
-  else if i0 < 0 then "-" ^ getEach (abs i0) ""
+  else if i0 < 0 then strcat "-"  (getEach (abs i0) "")
   else getEach i0 "";;
 
 let () = Printf.printf "WTF: %s\n%!" (int2str(0));;
@@ -210,7 +221,7 @@ let stringrev(cs: string): string =
       if i >= (string_length cs) then
         revstr
       else
-        let new_revstr = str(string_get(cs, i)) ^ revstr in
+        let new_revstr = strcat (str(string_get(cs, i))) revstr in
         helprev new_revstr (i+1)
     in
     helprev "" 0;;
