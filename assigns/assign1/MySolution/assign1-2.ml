@@ -1,6 +1,6 @@
 
 #use "./../../../classlib/OCaml/MyOCaml.ml";; 
-let string_merge(cs1, cs2) =
+let string_merge(cs1) (cs2) =
   let rec helper i j work =
     if string_length cs1=i then
       int1_foreach(string_length cs2 - j)(fun x -> work(string_get_at(cs2)(j + x)))
@@ -13,3 +13,5 @@ let string_merge(cs1, cs2) =
   in
   string_make_fwork(helper 0 0)
 ;;
+
+let () = Printf.printf "stringmerge 239 acd: %s\n%!" (string_merge("135")("2468"));;
