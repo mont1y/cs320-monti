@@ -16,6 +16,7 @@ let string_get(cs, i0) = String.get cs i0
 ;;
 (* ****** ****** *)
 
+<<<<<<< HEAD
 
 let rec fact(x: int): int =
 if x > 0 then x * fact(x-1) else 1;;
@@ -30,12 +31,18 @@ let strcat a b =
     else
       b.[i - String.length a]
 )
+=======
+(*
+fun fact(x: int): int =
+  if x > 0 then x * fact(x-1) else 1
+*)
+>>>>>>> upstream/main
 
 (*
 Assign0-1: 10 points
 Please find the first integer N such that the
-evaluation of fact(N) in OCaml yields an Overflow
-exception.
+evaluation of fact(N) in OCaml returns '0' (due
+to arithmetic overflow.
 *)
 let rec
 myans(x:int): int =
@@ -58,8 +65,8 @@ print_string("Assign0-1-test passed!\n")
 
 (*
 Assign0-2: 10 points
-Please implement a function that tests whether a
-given natural number is a prime:
+Please implement a function that tests whether
+a given natural number is a prime:
 fun isPrime(n0: int): bool
 *)
 
@@ -169,6 +176,9 @@ Please implement a function that converts a given
 string to an integer:
 fun str2int(cs: string): int
 In particular, it is expected that str2int(int2str(x)) = x
+for natural numbers x.
+(You can assume that the given string is a sequence of digits)
+(And the empty sequence represents the integer 0)
 *)
 
 let str2int(cs: string): int =
@@ -213,6 +223,8 @@ Assign0-5: 10 points
 Please implement a function that returns the reverse of
 a given string:
 fun stringrev(cs: string): string
+Note that you are not allowed to use string concatenation
+or your solution is disqualified.
 *)
 
 let stringrev(cs: string): string = 
