@@ -11,6 +11,15 @@ let rec helprev revstr i =
 in
 helprev "" 0;;
 
+let strcat a b =
+  let len = string_length a + string_length b in
+  string_init len (fun i ->
+    if i < string_length a then
+      string_get_at(a)(i)
+    else
+      string_get_at(b)(i - string_length a)
+)
+
 
 let string_longest_ascend(xs: string): string =
   (* curLong is the current longest consecutive string
