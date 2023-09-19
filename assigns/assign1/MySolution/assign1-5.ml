@@ -29,6 +29,9 @@ let string_longest_ascend(xs: string): string =
     if (i < string_length xs) then
       let rec helper2 (curLong: string) (j:int): string =
         if (j < string_length xs) then
+          (* A recursive function that's basically minimax
+          what I need a minimax in here? that's insane!!
+          let rec helper3 count index () *)
           if (string_length curLong = 0) then
             helper2 (string_cons(string_get_at(xs)(j)) (curLong)) (j+1)
           else if (string_get_at(xs)(j) >= string_get_at(curLong)(0)) then
@@ -44,7 +47,7 @@ let string_longest_ascend(xs: string): string =
       else
         helper finLong "" (i+1)
     else
-      finLong
+      stringrev(finLong)
   in
   helper "" "" 0
 ;;
