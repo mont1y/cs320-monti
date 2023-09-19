@@ -1,3 +1,5 @@
+#use "./../../../classlib/OCaml/MyOCaml.ml";; 
+
 let string_avoid_1324(cs:string): bool =
   let rec helper1 len1 i =
     if (i < len1) then
