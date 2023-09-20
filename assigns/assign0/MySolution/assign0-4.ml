@@ -1,4 +1,4 @@
-#use "./../assign0.ml";;
+#use "./../../../classlib/OCaml/assign0.ml";;
 
 let str2int(cs: string): int =
   (* tr is the index count of the string, starting from the end, while i is the number I want to return, mul is the scaling index *)
