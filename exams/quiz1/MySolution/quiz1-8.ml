@@ -16,8 +16,21 @@
 
 *)
 
+let sort2: int*int -> int*int =
+  if let int1 = sort2[0]
+    let int2 = sort2[1]
+in
+if int1>int2 then
+int2*int1
+else
+int1*int2;;
+
 let sort5: int*int*int*int*int -> int*int*int*int*int =
-  (* YOUR CODE *)
+  let test(int*int):int*int =
+  test int*int
+  sort2(int*int)
+in
+int1_forall(int*int)(test)
 
 
 (* ************************************************ *)
