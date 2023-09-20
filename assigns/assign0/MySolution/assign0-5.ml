@@ -7,7 +7,7 @@ let strcat a b =
       string_get(a,i)
     else
       string_get(b,i - string_length a)
-    ;;
+  );;
 
 let stringrev(cs: string): string = 
     (* i is the index, starting from 0 *)
