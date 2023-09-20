@@ -6,13 +6,13 @@ let str2int(cs: string): int =
     if itr <= 0 then
       i
     else
-      if (string_get_at(cs)(itr - 1)) = '-' then
+      if (string_get(cs,itr - 1)) = '-' then
         i
       else 
-        let new_i = i + (((ord (string_get_at(cs)(itr - 1))) - ord '0') * mul) in
+        let new_i = i + (((ord (string_get(cs,itr - 1))) - ord '0') * mul) in
         getEach (itr - 1) new_i (mul*10)
   in
-  if string_get_at(cs)(0) = '-' then
+  if string_get(cs,0) = '-' then
     -1*getEach (string_length cs) 0 1
   else
     getEach (string_length cs) 0 1

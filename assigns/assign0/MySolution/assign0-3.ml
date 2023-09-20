@@ -4,9 +4,9 @@ let strcat a b =
   let len = string_length a + string_length b in
   string_init len (fun i ->
     if i < string_length a then
-      string_get_at(a)(i)
+      string_get(a,i)
     else
-      string_get_at(b)(i - string_length a)
+      string_get(b,i - string_length a)
     ;;
 
 
