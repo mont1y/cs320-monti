@@ -1,4 +1,4 @@
-#use "./../../../classlib/OCaml/assign0.ml";;
+#use "./../assign0.ml";;
 
 let strcat a b =
   let len = string_length a + string_length b in

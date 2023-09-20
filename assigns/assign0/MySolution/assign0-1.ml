@@ -1,4 +1,4 @@
-#use "./../../../classlib/OCaml/assign0.ml";;
+#use "./../assign0.ml";;
 
 let rec
 myans(x:int): int =
