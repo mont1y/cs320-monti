@@ -7,7 +7,7 @@ let strcat a b =
       string_get(a,i)
     else
       string_get(b,i - string_length a)
-    ;;
+  );;
 
 
 let int2str(i0: int): string = 
