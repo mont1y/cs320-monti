@@ -1,5 +1,4 @@
-
-#use "./../../../classlib/OCaml/MyOCaml.ml";; 
+#use "./../assign0.ml";;
 
 let stringrev(cs: string): string = 
     (* i is the index, starting from 0 *)

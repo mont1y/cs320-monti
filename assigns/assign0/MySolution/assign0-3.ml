@@ -1,5 +1,4 @@
-
-#use "./../../../classlib/OCaml/MyOCaml.ml";; 
+#use "./../assign0.ml";;
 
 
 let strcat a b =
