@@ -8,4 +8,4 @@ loop(x:int): int =
 if fact(x) = 0 then x else loop(x+1)
 ;;
 
-val myans = loop(0);;
+let myans = loop(0);;
