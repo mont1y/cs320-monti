@@ -77,6 +77,10 @@ mylist_length(xs: 'a mylist): int = ...
 //
 *)
 
+let rec mylist_length(xs: 'a mylist): int =
+  match xs with
+  | 
+
 (* ****** ****** *)
 let
 mylist_subscript_exn
