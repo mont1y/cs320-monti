@@ -1,8 +1,14 @@
-#use "./../../../classlib/OCaml/MyOCaml.ml";; 
-#use "./../../../assigns/assign2/MySolution/OCaml/assign2-3.ml";; 
+type
+('xs, 'x0) foreach = 'xs -> ('x0 -> unit) -> unit
+
+type
+('xs, 'x0) rforeach = 'xs -> ('x0 -> unit) -> unit
 
 type
 ('xs, 'x0) iforeach = 'xs -> (int -> 'x0 -> unit) -> unit
+
+type
+('xs, 'x0, 'r0) foldleft = 'xs -> 'r0 -> ('r0 -> 'x0 -> 'r0) -> 'r0
 
 let rec
 list_foldleft
