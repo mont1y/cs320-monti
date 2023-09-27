@@ -1,5 +1,4 @@
-#use "./../../../classlib/OCaml/MyOCaml.ml";; 
-#use "./../../../assigns/assign2/MySolution/OCaml/assign2-3.ml";; 
+#use "./../../../../classlib/OCaml/MyOCaml.ml";; 
 
 let rec
 list_foldleft
