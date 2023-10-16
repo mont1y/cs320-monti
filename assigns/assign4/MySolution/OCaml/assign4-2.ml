@@ -1,3 +1,5 @@
+#use "./../../../../classlib/OCaml/MyOCaml.ml";;
+
 let theNatPairs: (int * int) stream = fun () ->
   let rec generate_pairs i j = fun () ->
     StrCons((i, j), fun () ->
