@@ -46,4 +46,61 @@ let rec trim cs =
    parse "((mul 1 2)" = None
 
 *)
-let parse (s : string) : expr option = (* YOUR CODE *)
+let rec parse_expr cs =
+  match trim cs with
+  | '(' :: 'a' :: 'd' :: 'd' :: rest ->
+      let exprs, remaining = parse_exprs rest in
+      Some (Add exprs), remaining
+  | '(' :: 'm' :: 'u' :: 'l' :: rest ->
+      let exprs, remaining = parse_exprs rest in
+      Some (Mul exprs), remaining
+  | '(' :: rest ->
+      let expr, remaining = parse_expr rest in
+      (match remaining with
+      | ')' :: tail -> Some expr, tail
+      | _ -> None)
+  | _ -> parse_num cs
+
+and parse_exprs cs =
+  let expr, remaining = parse_expr cs in
+  match remaining with
+  | ')' :: tail -> [expr], tail
+  | _ ->
+      let exprs, remaining' = parse_exprs remaining in
+      expr :: exprs, remaining'
+
+and parse_num cs =
+  let rec parse_digits acc cs =
+    match cs with
+    | c :: rest when Char.is_digit c ->
+        parse_digits (c :: acc) rest
+    | _ -> (
+        match String.of_char_list (List.rev acc) with
+        | "" -> None
+        | num -> Some (Int (int_of_string num)), cs
+      )
+  in
+  parse_digits [] cs
+
+let parse (s : string) : expr option =
+  match parse_expr (string_listize s) with
+  | Some expr, [] -> Some expr
+  | _ -> None
+
+
+  let () =
+  let test_case s =
+    match parse s with
+    | Some expr -> Printf.printf "Parsed: %s\n" (MyOCaml.to_string (expr :> MyOCaml.value))
+    | None -> Printf.printf "Invalid input: %s\n" s
+  in
+
+  (* Test cases *)
+  let valid_inputs = ["(add 1 2 3)"; "(mul (add 1 2) 3 (mul 1))"] in
+  let invalid_inputs = ["()"; "(add)"; "(add 1 2))"; "((mul 1 2)"] in
+
+  Printf.printf "Valid inputs:\n";
+  List.iter test_case valid_inputs;
+
+  Printf.printf "\nInvalid inputs:\n";
+  List.iter test_case invalid_inputs
