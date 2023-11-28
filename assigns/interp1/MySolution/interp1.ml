@@ -104,7 +104,7 @@ let string_of_const (c : const) : string =
   | Bool b -> string_of_bool b
   | Unit -> "Unit"
   
-let rec string_of_com (e : com list) : string =
+(* let rec string_of_com (e : com list) : string =
   match e with
   | Push c :: rest -> "Push " ^ string_of_const c ^ ";" ^ string_of_com rest
   | Pop :: rest -> "Pop;" ^ string_of_com rest
@@ -118,7 +118,7 @@ let rec string_of_com (e : com list) : string =
   | Not :: rest -> "Not;" ^ string_of_com rest
   | Lt :: rest -> "Lt;" ^ string_of_com rest
   | Gt :: rest -> "Gt;" ^ string_of_com rest
-  | [] -> ""
+  | [] -> "" *)
 
 
 (* let parsed_commands = [Push (Int 1); Pop] *)
@@ -205,18 +205,9 @@ let interp (s : string) : string list option =
   | Some commands -> Some (intrep1 [] [] commands)
   | None -> None
 
-let () =
-  match interp "Push 3;
-  Push 3;
-  Mul;
-  Push -4;
-  Push 3;
-  Mul;
-  Add;
-  Push 7;
-  Add;
-  Trace;" with
+(* let () =
+  match interp "Push 3b; Trace" with
   | Some interp ->
     Printf.printf "Interpreted result: %s\n" (String.concat " " interp)
   | None ->
-    print_endline "Failed to parse commands."
+    print_endline "Failed to parse commands." *)
