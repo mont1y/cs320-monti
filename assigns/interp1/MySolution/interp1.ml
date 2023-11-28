@@ -142,7 +142,7 @@ let rec intrep1 (stack: const list) (trace: string list) (program: com list) : s
     | Push c :: program -> intrep1 (c :: stack) (trace) (program)
     | Pop :: program -> (
         match stack with
-        | _ :: rest -> intrep1 (rest) (trace) (program)
+        | x :: rest -> intrep1 (rest) (trace) (program)
         | [] -> "Panic" :: trace
       )
     | Trace :: program -> (
