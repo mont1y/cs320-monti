@@ -12,6 +12,11 @@ Notes:
 
 *)
 
+
+
+
+
+
 type const =
   | Int of int  
   | Bool of bool
@@ -200,3 +205,10 @@ let interp (s : string) : string list option =
   match parse_commands (string_of_list(trim (string_listize s))) with
   | Some commands -> Some (intrep1 [] [] commands)
   | None -> None
+
+let () =
+  match interp "Push 1; Add; Trace;" with
+  | Some interp ->
+    Printf.printf "Interpreted result: %s\n" (String.concat " " interp)
+  | None ->
+    print_endline "Failed to parse commands."
