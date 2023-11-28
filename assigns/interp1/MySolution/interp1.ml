@@ -207,7 +207,16 @@ let interp (s : string) : string list option =
   | None -> None
 
 let () =
-  match interp "Push 1; Add; Trace;" with
+  match interp "Push 3;
+  Push 3;
+  Mul;
+  Push -4;
+  Push 3;
+  Mul;
+  Add;
+  Push 7;
+  Add;
+  Trace;" with
   | Some interp ->
     Printf.printf "Interpreted result: %s\n" (String.concat " " interp)
   | None ->
