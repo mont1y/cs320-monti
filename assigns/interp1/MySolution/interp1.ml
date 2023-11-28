@@ -30,6 +30,21 @@ type com =
   | Lt
   | Gt
 
+let rec trim cs =
+  match cs with
+  | [] -> cs
+  | '\n' :: cs -> trim cs
+  | '\t' :: cs -> trim cs
+  | '\r' :: cs -> trim cs
+  | ' ' :: cs -> trim cs
+  | _ -> cs
+
+let string_listize (s : string) : char list =
+  list_make_fwork(fun work -> string_foreach s work)
+
+let string_of_list (cs : char list) : string =
+  string_make_fwork(fun work -> list_foreach cs work)
+
 let option1 (p : 'a parser) : 'a option parser =
   fun xs ->
     match p xs with
@@ -108,14 +123,14 @@ let parse_commands (s: string) : com list option =
   match string_parse (many (parse_com << keyword ";")) s with
   | Some (commands, _) -> Some commands
   | None -> None
-
+(* 
 let () =
   match parse_commands "Push Unit; Pop; Push -21; Lt; Sub; Div; Push Unit;" with
   | Some parsed_commands ->
     let output = string_of_com parsed_commands in
     print_endline output
   | None ->
-    print_endline "Failed to parse commands."
+    print_endline "Failed to parse commands." *)
 
 let rec intrep1 (stack: const list) (trace: string list) (program: com list) : string list =
     match program with
@@ -182,6 +197,6 @@ let rec intrep1 (stack: const list) (trace: string list) (program: com list) : s
 ;;
 
 let interp (s : string) : string list option = 
-  match parse_commands s with
+  match parse_commands (string_of_list(trim (string_listize s))) with
   | Some commands -> Some (intrep1 [] [] commands)
   | None -> None
