@@ -43,12 +43,16 @@ let parse_bool =
 let is_alpha c =
   (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 
+
 let parse_symbol =
   (parse_nat >>= fun n -> fail) <|>
   (parse_int >>= fun _ -> fail) <|>
   (many1' (fun () -> satisfy is_alpha) >>= fun chars ->
     let sym_str = string_make_fwork (fun work -> list_foreach chars work) in
-    pure (Sym sym_str))
+    pure (Sym sym_str)) 
+
+
+
 
 let parse_unit =
   keyword "Unit" >> pure Unit
@@ -217,7 +221,7 @@ let rec eval (s : stack) (t : trace) (e: env) (p : prog): trace =
      | [] -> eval [] ("Panic" :: t) e [])
   | Bind :: p0 ->  
     (match s with
-     | Sym s :: v :: s0 -> eval s0 t ((s, v) :: e) p0
+     | Sym st :: v :: s0 -> eval s0 t ((st, v) :: e) p0
      | _ :: s0 -> eval [] ("Panic" :: t) e []
      | [] -> eval [] ("Panic" :: t) e [])
   | Lookup :: p0 ->
@@ -254,5 +258,3 @@ let interp (s : string) : string list option =
   match string_parse (whitespaces >> parse_coms()) s with
   | Some (p, []) -> Some (eval [] [] [] p)
   | _ -> None
-
-
