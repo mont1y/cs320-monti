@@ -40,14 +40,14 @@ let parse_bool =
   (keyword "True" >> pure (Bool true)) <|>
   (keyword "False" >> pure (Bool false))
 
-let is_alpha c =
-  (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
+let is_alphanumeric c =
+  (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')
 
 
 let parse_symbol =
   (parse_nat >>= fun n -> fail) <|>
   (parse_int >>= fun _ -> fail) <|>
-  (many1' (fun () -> satisfy is_alpha) >>= fun chars ->
+  (many1' (fun () -> satisfy is_alphanumeric) >>= fun chars ->
     let sym_str = string_make_fwork (fun work -> list_foreach chars work) in
     pure (Sym sym_str)) 
 
