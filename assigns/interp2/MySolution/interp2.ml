@@ -255,31 +255,4 @@ let interp (s : string) : string list option =
   | Some (p, []) -> Some (eval [] [] [] p)
   | _ -> None
 
-let () =
-  match interp "Push poly;
-Fun
-Push x;
-Bind;
-Push x;
-Lookup;
-Push x;
-Lookup;
-Mul;
-Push -4;
-Push x;
-Lookup;
-Mul;
-Add;
-Push 7;
-Add;
-Swap;
-Return;
-End;
-Push 3;
-Swap;
-Call;
-Trace;" with
-  | Some interp ->
-    Printf.printf "Interpreted result: %s\n" (String.concat " " interp)
-  | None ->
-    print_endline "Failed to parse commands." 
+
