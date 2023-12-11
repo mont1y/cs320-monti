@@ -328,4 +328,39 @@ let parse_prog (s : string) : expr =
   | Some (m, []) -> scope_expr m
   | _ -> raise SyntaxError
 
-let compile (s : string) : string = (* YOUR CODE *)
+let compile (s: string) : string =
+  let expr = parse_prog s in
+  let rec helper e =
+    match e with
+    | Int m -> "Push " ^ string_of_int m ^ "; "
+    | Bool m -> if m then "Push True; " else "Push False; "
+    | Var s -> "Push " ^ s ^ "; Lookup; "
+    | UOpr (Neg, m) -> helper m ^ "Push -1; Mul; "
+    | UOpr (Not, m) -> helper m  ^ "Not; "
+    | BOpr (Add, m, n) -> helper m ^ helper n ^ "Add; "
+    | BOpr (Sub, m, n) -> helper m ^ helper n ^ "Swap; Sub; "
+    | BOpr (Mul, m, n) -> helper m ^ helper n ^ "Mul; "
+    | BOpr (Div, m, n) -> helper m ^ helper n ^ "Swap; Div; "
+    (* Push b * a/b, Push a, Sub im such a genius *)
+    | BOpr (Mod, m, n) -> helper m ^ helper n ^ "Div; " ^ helper n ^ "Mul; " ^ helper m ^ "Sub; "
+    | BOpr (And, m, n) -> helper m ^ helper n ^ "And; "
+    | BOpr (Or, m, n) -> helper m ^ helper n ^ "Or; "
+    | BOpr (Lt, m, n) -> helper m ^ helper n ^ "Swap; Lt; "
+    | BOpr (Gt, m, n) -> helper m ^ helper n ^ "Swap; Gt; "
+    | BOpr (Lte, m, n) -> helper m ^ helper n ^ "Swap; Gt; Not; "
+    | BOpr (Gte, m, n) -> helper m ^ helper n ^ "Swap; Lt; Not; "
+    (*Push 1; Push 1; Gt; Not; Push 1; Push 1; Lt; Not; And;*)
+    | BOpr (Eq, m, n) -> helper m ^ helper n ^ "Swap; Gt; Not; " ^ helper m ^ helper n ^ "Swap; Lt; Not; And; "
+    (* x is var, m is val, in n (scope) *)
+    | Let (x, m, n) -> helper m ^ "Push " ^ x ^ "; " ^ "Bind; " ^ helper n
+    (* Push function name f, Fun + x bind, and then all the commands, and then call *)
+    | Fun (f, x, m) -> "Push " ^ f ^ "; " ^ "Fun " ^ "Push " ^ x ^ "; " ^ "Bind; " ^ helper m ^ "Swap; Return; End; "
+    | App (f, v) -> helper f ^ helper v ^ "Swap; Call; "
+    | Seq (m1, m2) -> helper m1 ^ "Pop; " ^helper m2 
+    (*| Ifte (Fun x, n1, n2) -> helper m ^ "If " ^ helper n1 ^ "Swap; Return; Else " ^ helper n2 ^ "Swap; Return; End; "*)
+    | Ifte (m, n1, n2) -> helper m ^ "If " ^ helper n1 ^ "Else " ^ helper n2 ^ "End; "
+    | Trace m -> helper m ^ "Trace; "
+
+    | _ -> "error; "
+  in
+  helper expr
