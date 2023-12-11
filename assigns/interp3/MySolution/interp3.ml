@@ -335,6 +335,7 @@ let compile (s: string) : string =
     | Int m -> "Push " ^ string_of_int m ^ "; "
     | Bool m -> if m then "Push True; " else "Push False; "
     | Var s -> "Push " ^ s ^ "; Lookup; "
+    | Unit -> "Push Unit; " 
     | UOpr (Neg, m) -> helper m ^ "Push -1; Mul; "
     | UOpr (Not, m) -> helper m  ^ "Not; "
     | BOpr (Add, m, n) -> helper m ^ helper n ^ "Add; "
