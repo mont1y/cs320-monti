@@ -1,3 +1,3 @@
-# CS320-2023-Fall
+# OCaml Compiler/Interpreter
 
 - examples/opSem: Operational Semantics
